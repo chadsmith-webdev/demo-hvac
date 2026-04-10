@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* ─── Ozark Air & Heat — Design System ─── */
+:root {
+  --bg: #0e0c0b;
+  --surface: #161311;
+  --surface-2: #1f1c18;
+  --border: #2c2824;
+  --border-strong: #3d3830;
+  --accent: #f97316;
+  --accent-hover: #ea6b0e;
+  --accent-dim: rgba(249, 115, 22, 0.12);
+  --accent-dim-2: rgba(249, 115, 22, 0.06);
+  --text: #f0ece6;
+  --text-muted: #7a746c;
+  --text-subtle: #4a4540;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-dim: var(--accent-dim);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --font-display: var(--font-barlow);
+  --font-body: var(--font-dm);
+}
+
+/* ─── Base ─── */
+html {
+  background-color: var(--bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-dm), "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─── */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ─── Focus ─── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Utilities ─── */
+@utility label-tag {
+  font-family: var(--font-dm), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@utility section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 1px;
+}
+
+@utility raw-border {
+  border: 1px solid var(--border);
+}
+
+@utility accent-border-l {
+  border-left: 3px solid var(--accent);
+}
+
+@utility hover-accent {
+  transition: color 0.2s;
+  &:hover {
+    color: var(--accent) !important;
+  }
+}
+
+@utility hover-accent-bg {
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: var(--accent-hover) !important;
+  }
+}
+
+@utility hover-surface-bg {
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: var(--surface-2) !important;
+  }
+}
+
+/* ─── Animations ─── */
+@keyframes pulse-orange {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 28s linear infinite;
+}
+
+.animate-pulse-orange {
+  animation: pulse-orange 2.4s ease-in-out infinite;
+}
+
+/* ─── Responsive Layout Utilities ─── */
+
+/* Alternating service-detail section grids (2fr/1fr) */
+.grid-svc-even,
+.grid-svc-odd {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* FAQ sidebar + accordion */
+.grid-faq {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Booking form + trust sidebar */
+.grid-book-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Panel padding — responsive (used for financing & final CTA inner panels) */
+.panel-pad {
+  padding: 40px 24px;
+}
+
+@media (min-width: 768px) {
+  .grid-svc-even {
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+  }
+  .grid-svc-odd {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+  .grid-faq {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+  .grid-book-form {
+    grid-template-columns: 3fr 2fr;
+    gap: 4rem;
+  }
+  .panel-pad {
+    padding: 56px 48px;
+  }
+}
+
+/* Trust bar items — reduce horizontal padding on very small screens */
+@media (max-width: 479px) {
+  .trust-bar-item {
+    padding: 14px 16px !important;
+  }
+}
+
+/* Interior page headers */
+.page-header-pad {
+  padding: 48px 0 40px;
+}
+
+@media (min-width: 768px) {
+  .page-header-pad {
+    padding: 80px 0 64px;
+  }
+}
